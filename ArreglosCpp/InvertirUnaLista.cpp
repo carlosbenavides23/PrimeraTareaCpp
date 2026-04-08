@@ -1,22 +1,33 @@
-/* El programa debe pedir 10 numeros al usuario, guardarlos en una lista y luego
- imprimirlos en orden inverso */
+/* El programa debe solicitar al usuario que ingrese 10 numeros, almacenarlos en
+ una lista, y luego mostrar los numeros en orden inverso. */
 
 #include <iostream>
+#include <limits>
 
 int main() {
-  const int SIZE = 10;
-  int numeros[SIZE];
+  const int numNumeros = 10;
+  double numeros[numNumeros];
 
-  // Solicitar al usuario que ingrese 10 números
-  std::cout << "Ingrese " << SIZE << " números enteros:" << std::endl;
-  for (int i = 0; i < SIZE; ++i) {
-    std::cout << "Número " << (i + 1) << ": ";
-    std::cin >> numeros[i];
+  std::cout << "Ingrese " << numNumeros << " numeros:" << std::endl;
+
+  for (int i = 0; i < numNumeros; ++i) {
+    while (true) {
+      std::cout << "Numero " << (i + 1) << ": ";
+      std::cin >> numeros[i];
+
+      if (std::cin.fail()) {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Entrada invalida. Debe ingresar un numero.\n";
+      } else {
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        break;
+      }
+    }
   }
 
-  // Imprimir los números en orden inverso
-  std::cout << "Los números en orden inverso son:" << std::endl;
-  for (int i = SIZE - 1; i >= 0; --i) {
+  std::cout << "Los numeros en orden inverso son:" << std::endl;
+  for (int i = numNumeros - 1; i >= 0; --i) {
     std::cout << numeros[i] << " ";
   }
   std::cout << std::endl;

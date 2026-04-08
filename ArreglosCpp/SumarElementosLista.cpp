@@ -4,13 +4,13 @@ arreglo y luego mostrar la suma de los elementos del arreglo en total. */
 #include <iostream>
 
 int main() {
-  const int SIZE = 10;
-  double numeros[SIZE];
+  const int numNumeros = 10;
+  double numeros[numNumeros];
   double suma = 0;
 
   // Solicitar diez numeros
-  std::cout << "Ingrese " << SIZE << " números:" << std::endl;
-  for (int i = 0; i < SIZE; ++i) {
+  std::cout << "Ingrese " << numNumeros << " números:" << std::endl;
+  for (int i = 0; i < numNumeros; ++i) {
     std::cout << "Número " << (i + 1) << ": ";
     std::cin >> numeros[i];
     suma += numeros[i]; // Sumar el número al total

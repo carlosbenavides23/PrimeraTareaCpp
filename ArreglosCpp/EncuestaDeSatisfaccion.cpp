@@ -1,53 +1,56 @@
-/* El programa debe alamcenar las encuestas de satisfaccion de 20 personas que
+/* El programa debe almacenar las encuestas de satisfaccion de 20 personas que
 valoran un servicio del 1 al 5. Despues almacenar las respuestas en una lista,
 contar cuantas personas eligieron cada puntuacion, y por ultimo mostrar el
-porcentaje de satisfaccion (4 y 5)*/
+porcentaje de satisfaccion (4 y 5) */
 
+#include <iomanip> // Para manipular el formato de salida (std::fixed, std::setprecision)
 #include <iostream>
-#include <limits>
+#include <limits> // Para límites numéricos y manejo de errores de entrada
 
 int main() {
-  const int SIZE = 20;
-  int encuestas[SIZE];
-  int conteo[5] = {0}; // Para contar las respuestas del 1 al 5
-
-  for (int i = 0; i < SIZE; ++i) {
+  const int numEncuestas = 20;
+  int encuestas[numEncuestas];
+  int conteo[5] = {0}; // Para contar las respuestas de 1 a 5
+                       // Solicitar las encuestas con validación
+  for (int i = 0; i < numEncuestas; ++i) {
     int valor;
+
     while (true) {
-      std::cout << "Ingrese la puntuación de satisfacción para la persona "
+      std::cout << "Ingrese la puntuacion de satisfaccion para la persona "
                 << (i + 1) << " (1-5): ";
       std::cin >> valor;
-
+      // Validar la entrada
       if (std::cin.fail()) {
-        std::cin.clear(); // limpiar el estado de error
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(),
-                        '\n'); // descartar resto de la línea
-        std::cout << "Entrada inválida: ingrese un número entero.\n";
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Entrada invalida: ingrese un numero entero.\n";
       } else if (valor < 1 || valor > 5) {
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::cout << "Valor fuera de rango: debe estar entre 1 y 5.\n";
       } else {
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(),
-                        '\n'); // descartar resto de la línea
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         break;
       }
     }
 
-    encuestas[i] = valor;
+    encuestas[i] = valor; // Almacenar la respuesta en el arreglo
     conteo[valor -
-           1]++; // Incrementar el conteo para la puntuación correspondiente
+           1]++; // Incrementar el conteo para la puntuacion que corresponde
+  }
+  // Calcular el porcentaje de satisfaccion (4 y 5)
+  int totalSatisfechos = conteo[3] + conteo[4];
+  double porcentajeSatisfaccion =
+      static_cast<double>(totalSatisfechos) / numEncuestas * 100;
+
+  std::cout << std::fixed << std::setprecision(2);
+  std::cout << "\nResumen de resultados\n";
+
+  for (int i = 0; i < 5; ++i) {
+    std::cout << "Cantidad que eligio " << (i + 1) << ": " << conteo[i] << '\n';
   }
 
-  int totalSatisfechos = conteo[3] + conteo[4]; // Contar respuestas de 4 y 5
-  double porcentajeSatisfaccion =
-      static_cast<double>(totalSatisfechos) / SIZE * 100;
-
-  std::cout << "Cantidad que eligió 1: " << conteo[0] << std::endl;
-  std::cout << "Cantidad que eligió 2: " << conteo[1] << std::endl;
-  std::cout << "Cantidad que eligió 3: " << conteo[2] << std::endl;
-  std::cout << "Cantidad que eligió 4: " << conteo[3] << std::endl;
-  std::cout << "Cantidad que eligió 5: " << conteo[4] << std::endl;
-  std::cout << "Porcentaje de satisfacción (4 y 5): " << porcentajeSatisfaccion
-            << "%" << std::endl;
+  std::cout << "Porcentaje de satisfaccion (4 y 5): " << porcentajeSatisfaccion
+            << "%\n";
 
   return 0;
 }

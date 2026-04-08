@@ -8,9 +8,15 @@ int main() {
   int numeros[SIZE] = {5, 10, 15, 20, 25, 30, 35, 67, 45, 50};
   int sumaPares = 0;
 
+  std::cout << "Lista de elementos:" << std::endl;
   for (int i = 0; i < SIZE; ++i) {
-    if (i % 2 == 0) {          // Verificar si la posición es par
-      sumaPares += numeros[i]; // Sumar el elemento en posición par
+    std::cout << numeros[i] << " ";
+  }
+  std::cout << std::endl;
+
+  for (int i = 0; i < SIZE; ++i) {
+    if (i % 2 == 0) {
+      sumaPares += numeros[i];
     }
   }
 
