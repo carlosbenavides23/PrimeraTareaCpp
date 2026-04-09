@@ -2,6 +2,7 @@
 arreglo y luego mostrar la suma de los elementos del arreglo en total. */
 
 #include <iostream>
+#include <limits> // Para límites numéricos y manejo de errores de entrada
 
 int main() {
   const int numNumeros = 10;
@@ -11,8 +12,19 @@ int main() {
   // Solicitar diez numeros
   std::cout << "Ingrese " << numNumeros << " números:" << std::endl;
   for (int i = 0; i < numNumeros; ++i) {
-    std::cout << "Número " << (i + 1) << ": ";
-    std::cin >> numeros[i];
+    while (true) {
+      std::cout << "Número " << (i + 1) << ": ";
+      std::cin >> numeros[i];
+
+      if (std::cin.fail()) {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Entrada invalida. Debe ingresar un numero.\n";
+      } else {
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        break;
+      }
+    }
     suma += numeros[i]; // Sumar el número al total
   }
 
